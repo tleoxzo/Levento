@@ -14,8 +14,9 @@ async function getBlogs(slug: string) {
    
 
 export default async function Page({ params }:{ params: { slug: string } }){
-    const blog = await getBlogs(params.slug)
-    console.log("ParamS:",params.slug);
+    const value = await params;
+    const blog = await getBlogs(value.slug)
+    console.log("ParamS:", value.slug);
     return (
         
             <div className={"bg-gray-100 flex justify-center items-center min-h-screen p-6"}>
