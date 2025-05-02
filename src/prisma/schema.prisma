@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model profile {
+  id         Int       @id @default(autoincrement())
+  phone      String    @db.VarChar(10)
+  name       String    @db.VarChar(100)
+  birthdate  DateTime?
+  created_at DateTime  @default(now())
+}
+
+model product {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(100)
+  price      Float
+  created_at DateTime @default(now())
+}
+
+model product_package {
+  id         Int      @id @default(autoincrement())
+  name       String   @db.VarChar(100)
+  price      Float
+  product_id Int?
+  created_at DateTime @default(now())
+}
+
+model order {
+  id         Int      @id @default(autoincrement())
+  profile_id Int
+  product_id Int
+  package_id Int?
+  coupon_id  Int?
+  price      Float    @default(0)
+  discount   Float    @default(0)
+  status     String   @db.VarChar(50)
+  created_at DateTime @default(now())
+}
+
+model coupon {
+  id         Int      @id @default(autoincrement())
+  code       String   @db.VarChar(50)
+  discount   Float
+  created_at DateTime @default(now())
+}
+
+model wallpaper {
+  id         Int      @id @default(autoincrement())
+  type       String   @db.VarChar(50)
+  url        String   @default("")
+  filename   String   @default("")
+  ref        String?  @db.VarChar(50)
+  product_id Int?
+  created_at DateTime @default(now())
+}

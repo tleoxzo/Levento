@@ -1,12 +1,27 @@
-import type { NextConfig } from "next";
-import { hostname } from "os";
+import type { NextConfig } from 'next'
+import packageJson from './package.json' assert { type: 'json' }
+
+const version = packageJson.version
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  images: {
-    domains: ["api.lorem.space"], // ✅ ใช้ domains แทน remotePatterns
+  env: {
+    version
   },
-  reactStrictMode: false
-};
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'wuhiuwvfarqsrwwbcqsd.supabase.co',
+        pathname: '**'
+      },
+      {
+        protocol: 'https',
+        hostname: 'moo100lan.com',
+        pathname: '**'
+      }
+    ],
+    domains: ['profile.line-scdn.net'],
+  }
+}
 
-export default nextConfig;
+export default nextConfig
